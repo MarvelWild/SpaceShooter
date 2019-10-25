@@ -22,7 +22,7 @@ _.init=function(pow)
 	_pointer=_hc:point(0,0)
 	
 	--это точка для поиска её коллизий в функциях точечных коллизий
-	local pointerEntity=Pow.pointer.new()
+	local pointerEntity=pow.pointer.new()
 	_shapeByEntity[pointerEntity]=_pointer
 	_entityByShape[_pointer]=pointerEntity
 end
@@ -40,37 +40,37 @@ local _debugShape=nil
 
 
 -- фигура коллизии это не спрайт, а отдельное описание.
-_.getEntityShape=function(entity)
-	local x,y,w,h=Entity.getCollisionBox(entity)
+_.getEntityShape=function(entity_)
+	local x,y,w,h=entity.getCollisionBox(entity_)
 	local shape = _hc:rectangle(x,y,w,h)
 	return shape
 end
 
 
 
-_.add=function(entity)
-	if entity.entityName=="player" then
+_.add=function(entity_)
+	if entity_.entityName=="player" then
 		local a=1
 	end
 	
 	
-	_log("Collision.add:"..Entity.toString(entity))
+	_log("Collision.add:"..entity.toString(entity_))
 --	_log(debug.traceback()) -- search key: stack traceback:
 	
 	
-	if _.isRegistered(entity) then
-		_log("error: entity already registered in collision system:"..Inspect(entity))
+	if _.isRegistered(entity_) then
+		_log("error: entity already registered in collision system:"..Inspect(entity_))
 		return
 	end
 	
-	local shape = _.getEntityShape(entity)
+	local shape = _.getEntityShape(entity_)
 	if shape==nil then 
-		_log("entity has no shape:"..Entity.toString(entity))
+		_log("entity has no shape:"..entity.toString(entity_))
 		return 
 	end
 	
-	_shapeByEntity[entity]=shape
-	_entityByShape[shape]=entity 
+	_shapeByEntity[entity_]=shape
+	_entityByShape[shape]=entity_ 
 	
 	--_log("Collidable entity registered: "..Entity.toString(entity))
 end
@@ -85,15 +85,15 @@ end
 
 
 
-_.remove=function(entity)
-	_log("collision.remove:"..Entity.toString(entity))
-	local shape=_shapeByEntity[entity]
+_.remove=function(entity_)
+	_log("collision.remove:"..entity.toString(entity_))
+	local shape=_shapeByEntity[entity_]
 	if not shape then
-		_log("warn: entity wasnt in collision system:"..Entity.toString(entity))
+		_log("warn: entity wasnt in collision system:"..entity.toString(entity_))
 		return
 	end
 	
-	_shapeByEntity[entity]=nil
+	_shapeByEntity[entity_]=nil
 	_entityByShape[shape]=nil
 	_hc:remove(shape)
 end
@@ -179,7 +179,7 @@ _.getAtEntity=function(entity)
 	local result=nil
 	for shape,v in pairs(collisions) do
 		local collisionEntity=_entityByShape[shape]
-		if not Entity.equals(collisionEntity, entity) then 
+		if not entity.equals(collisionEntity, entity) then 
 			if result==nil then result={} end
 			table.insert(result,collisionEntity)
 		end

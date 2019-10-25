@@ -1,12 +1,20 @@
 local _={}
 
 _.ship1={}
-_.ship1.ship1=love.graphics.newImage("res/ship1/ship1.png")
+_.ship1.ship1=love.graphics.newImage("res/ship1/ship3.png")
 
-_.ship1.ship1:setFilter("nearest", "nearest")
-
-
+_.bg=love.graphics.newImage("res/space1.png")
 -- todo: automate this
+--_.bg:setFilter("nearest", "nearest")
+--_.ship1.ship1:setFilter("nearest", "nearest")
+
+
+
 _.dot=love.graphics.newImage("res/dot_white.png")
+
+_.music={}
+_.music.track1=love.audio.newSource("res/music/track1.mp3","stream")
+_.enemy1=love.graphics.newImage("res/image/enemy1/enemy1.png")
+_.bullet=love.graphics.newImage("res/image/bullet.png")
 
 return _

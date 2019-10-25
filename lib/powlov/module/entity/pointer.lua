@@ -2,7 +2,7 @@
 local _={}
 _.entityName="pointer"
 _.new=function()
-	local result=BaseEntity.new(_.entityName,true)
+	local result=base_entity.new(_.entityName,true)
 	
 	return result
 end

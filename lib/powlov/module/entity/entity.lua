@@ -103,7 +103,10 @@ _.add=function(entity)
 	end
 	
 	-- todo: сущность не знает про этот сервис, сервис инжектится в пост-создание сущности
-	-- CollisionService.addEntity(entity)
+	
+	if entity.is_collision then
+		collision.add(entity)
+	end
 end
 
 -- drawables are array to make it sortable
@@ -139,7 +142,10 @@ _.remove=function(entity)
 	_mousePressedListeners[entity]=nil
 	_aiUpdatable[entity]=nil
 	_simulations[entity]=nil
-	CollisionService.removeEntity(entity)
+	
+	if entity.is_collision then
+		collision.remove(entity)
+	end
 end
 
 local compareByDrawLayer=function(info1,info2)

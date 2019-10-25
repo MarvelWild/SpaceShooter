@@ -1,4 +1,10 @@
+camera resize proportional
 todo: move player
 
 
 is code
+
+сделать титры под хорошие треки
+
+диалоговая система между миссиями
+
