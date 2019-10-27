@@ -14,6 +14,7 @@ enemy_code=require "enemy"
 bullet_code=require "bullet"
 bg_code=require "bg"
 local debug_x=require "dbg"
+cscreen=require "lib/CScreen/cscreen"
 
 collision=pow.newCollision()
 debug_x.pow=pow
@@ -38,6 +39,8 @@ game_height=240
 
 love.load=function()
 	
+	cscreen.init(game_width, game_height, true)
+	
 	entity.add(bg)
 	entity.add(player)
 	entity.add(enemy)
@@ -56,14 +59,16 @@ end
 
 love.draw=function()
 	-- root_node.draw()
-	love.graphics.draw(res.dot,0,0)
+	cscreen.apply()
+	-- Draw all of your objects here!
+	
 	pow.draw()
 	
 	local game_x,game_y=pow.getMouseXY()
 	
 
-
-	-- love.graphics.print("mouse at:"..game_x..","..game_y)
+	cscreen.cease()
+	love.graphics.print("mouse at:"..game_x..","..game_y)
 end
 
 love.update=function()
@@ -78,4 +83,5 @@ end
 
 love.resize=function(width, height)
 	pow.resize(width, height)
+	cscreen.update(width, height)
 end

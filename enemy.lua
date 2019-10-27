@@ -17,6 +17,8 @@ end
 
 
 
+
+
 _.new=function(node_name,parent)
 	local result=node.new(node_name,parent,_.entity_name)
 	result.x=110
@@ -24,6 +26,8 @@ _.new=function(node_name,parent)
 	result.scale=1
 	result.speed=1
 	result.orientation=0
+	
+	base_entity.init_collision(result)
 	
 	return result
 end

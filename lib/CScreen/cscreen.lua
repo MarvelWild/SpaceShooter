@@ -90,8 +90,8 @@ function CScreen.update(w, h)
 end
 
 -- Convert from window coordinates to target coordinates
-function CScreen.project(x, y)
-	return math.floor((x - tx) / fsv), math.floor((y - ty) / fsv)
+function CScreen.project(x_, y)
+	return math.floor((x_ - tx) / fsv), math.floor((y - ty) / fsv)
 end
 
 -- Change letterbox color

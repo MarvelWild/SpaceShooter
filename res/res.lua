@@ -4,6 +4,9 @@ _.ship1={}
 _.ship1.ship1=love.graphics.newImage("res/ship1/ship3.png")
 
 _.bg=love.graphics.newImage("res/space1.png")
+_.bg2=love.graphics.newImage("res/image/space2.png")
+_.bg3=love.graphics.newImage("res/image/space3.png")
+_.bg4=love.graphics.newImage("res/image/space4.png")
 -- todo: automate this
 --_.bg:setFilter("nearest", "nearest")
 --_.ship1.ship1:setFilter("nearest", "nearest")

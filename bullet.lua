@@ -4,7 +4,7 @@ _.entity_name="bullet"
 
 
 _.draw=function(bullet)
-	love.graphics.draw(res.bullet, bullet.x, bullet.y,bullet.orientation,
+	love.graphics.draw(bullet.sprite, bullet.x, bullet.y,bullet.orientation,
 		bullet.scale, bullet.scale)
 end
 
@@ -34,6 +34,7 @@ end
 
 _.new=function(node_name,parent)
 	local result=node.new(node_name,parent,_.entity_name)
+	result.sprite=res.bullet
 	result.x=110
 	result.y=40
 	result.scale=1

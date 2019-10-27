@@ -2,17 +2,12 @@
 -- framework extraction from "Wild World"
 local _={}
 
-local _gameScale=2
-local _cam=nil
-
 _.setGameScale=function(scale)
 	local max=16
 	local min=1
 	
 	scale=Pow.lume.clamp(scale,min,max)
 	
-	_gameScale=scale
-	_cam:setScale(_gameScale)
 end
 
 _.zoomIn=function()
@@ -133,9 +128,6 @@ local _allen=_.allen
 local _getDirItems=love.filesystem.getDirectoryItems
 local _getInfo=love.filesystem.getInfo
 
-
-_cam=_.gamera.new(0,0,128,128)
-_.cam=_cam
 
 -- function(message,channelName)
 _.log=_.debug.log
@@ -271,10 +263,7 @@ end
 _.draw=function()
 	
 	-- game
-	love.graphics.push()
-	_cam:draw(drawGame)
-	love.graphics.pop()
-	
+	drawGame()
 	
 	-- ui scale
 	love.graphics.push()
@@ -334,27 +323,23 @@ end
 
 
 _.load=function()
-	-- todo: config scale, world size
-	_cam:setScale(_gameScale)
-	_cam:setWorld(0,0,4096,4096)
 end
 
 _.getWorldCoords=function(screenX,screenY)
-	return _cam:toWorld(screenX,screenY)
+	return cscreen.project(screenX,screenY)
 end
 
 -- in world coords
 _.getMouseXY=function()
-	local x=love.mouse.getX()
+	local x_=love.mouse.getX()
 	local y=love.mouse.getY()
-	local gameX,gameY=_.getWorldCoords(x,y)
+	local gameX,gameY=_.getWorldCoords(x_,y)
 	return gameX,gameY
 end
 
 
 
 _.resize=function(width, height)
-	_cam:setWindow(0,0,width,height)
 end
 
 

@@ -3,7 +3,12 @@ local _={}
 _.entity_name="bg"
 
 _.draw=function(bg)
+	
+	
+	love.graphics.setColor( 1, 1, 1, 0.5)
 	love.graphics.draw(res.bg, bg.x, bg.y)
+	love.graphics.setColor( 1, 1, 1, 1)
+	
 end
 
 _.update=function(entity,dt)

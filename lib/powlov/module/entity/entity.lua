@@ -118,7 +118,7 @@ local removeDrawable=function(entity,container)
 			table.remove(container,k)
 			-- container[k]=nil wrong way (sort crash on nil)
 			
-			log("drawables after remove:"..#container)
+--			log("drawables after remove:"..#container)
 			return
 		end
 	end

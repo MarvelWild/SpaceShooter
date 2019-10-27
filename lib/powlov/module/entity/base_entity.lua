@@ -1,4 +1,5 @@
 -- WW:global BaseEntity
+-- родитель всех сущностей. содержит функции для работы с одиночной сущностью
 
 local _={}
 
@@ -44,14 +45,8 @@ end
 
 
 _.draw=function(entity)
-	local spriteName=entity.sprite
-	if (spriteName==nil) then
-		return
-	end
-	-- todo: cache it, do not query every frame
-	local sprite=Img.get(spriteName)
 	-- log('drawing:'..Entity.toString(entity))
-	love.graphics.draw(sprite,entity.x,entity.y)
+	love.graphics.draw(entity.sprite,entity.x,entity.y)
 end
 
 
@@ -63,6 +58,25 @@ end
 _.refToSting=function(entityRef)
 	if entityRef==nil then return "nil" end
 	return entityRef.id..":"..entityRef.entityName
+end
+
+-- calc w,h from sprite
+_.init_collision=function(entity)
+	local entity_sprite
+	if entity.w==nil or entity.h==nil then
+		entity_sprite=entity.sprite
+		if entity_sprite~=nil then
+			local w,h=entity_image:getDimensions()
+			
+			if entity.w==nil then
+				entity.w=w
+			end
+			
+			if entity.h==nil then
+				entity.h=h
+			end
+		end
+	end
 end
 
 return _
