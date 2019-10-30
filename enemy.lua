@@ -6,33 +6,42 @@ local max_y=220
 local min_y=60
 
 _.draw=function(enemy)
-	love.graphics.draw(res.enemy1, enemy.x, enemy.y,enemy.orientation,
+	love.graphics.draw(enemy.sprite, enemy.x, enemy.y,enemy.orientation,
 		enemy.scale, enemy.scale)
 end
 
 _.update=function(enemy,dt)
 	enemy.x=enemy.x-love.math.random()+0.5
 	enemy.y=enemy.y-love.math.random()+0.5
+	
+	Collision.moved(enemy)
 end
 
 
-
+local _sprite=Res.enemy1
+local _w=_sprite:getWidth()
+local _h=_sprite:getHeight()
 
 
 _.new=function(node_name,parent)
-	local result=node.new(node_name,parent,_.entity_name)
+	local result=Node.new(node_name,parent,_.entity_name)
 	result.x=110
 	result.y=40
 	result.scale=1
 	result.speed=1
+	result.sprite=_sprite
+	result.w=_w
+	result.h=_h
 	result.orientation=0
 	
-	base_entity.init_collision(result)
+	result.is_collision=true
+	
+	Base_entity.init_collision(result)
 	
 	return result
 end
 
-entity.addCode(_.entity_name,_)
+Entity.addCode(_.entity_name,_)
 
 return _
 

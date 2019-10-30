@@ -3,13 +3,22 @@
 
 local _={}
 
+local _pow
+local _new_id
+
+
+_.init=function(pow)
+	_pow=pow
+	_new_id=pow.id.new
+end
+
 -- todo: check is name used
 _.new=function(entityName,isService)
 	assert(entityName)
 	local result={}
 	
 	if not isService then
-		result.id=id.new(entityName)
+		result.id=_new_id(entityName)
 	end
 	
 	result.isService=isService

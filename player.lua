@@ -7,7 +7,7 @@ local max_y=220
 local min_y=60
 
 _.draw=function(player)
-	love.graphics.draw(res.ship1.ship1, player.x, player.y)
+	love.graphics.draw(Res.ship1.ship1, player.x, player.y)
 end
 
 local _cooldown=64
@@ -50,19 +50,19 @@ _.update=function(player_,dt)
 	if player_.x<0 then player_.x=0 end
 	if player_.y<min_y then player_.y=min_y end
 	if player_.y>max_y then player_.y=max_y end
-	local max_w=game_width-16 -- p.w
+	local max_w=Game_width-16 -- p.w
 	if player_.x>max_w then player_.x=max_w end
 	
 	local is_fire=love.keyboard.isDown("space")
 	if is_fire then
-		local frame=pow.getFrame()
+		local frame=Pow.getFrame()
 		if frame > _cooldown_ends then
 			_cooldown_ends=frame+_cooldown
 		
-			local bullet=bullet_code.new(game_node)
-			bullet.x=player.x+8
-			bullet.y=player.y
-			entity.add(bullet)
+			local bullet=Bullet_code.new(Game_node)
+			bullet.x=Player.x+8
+			bullet.y=Player.y
+			Entity.add(bullet)
 		end
 	
 	end
@@ -73,7 +73,7 @@ end
 
 
 _.new=function(node_name,parent)
-	local result=node.new(node_name,parent,_.entity_name)
+	local result=Node.new(node_name,parent,_.entity_name)
 	result.x=110
 	result.y=220
 	result.w=16
@@ -85,7 +85,7 @@ _.new=function(node_name,parent)
 	return result
 end
 
-entity.addCode(_.entity_name,_)
+Entity.addCode(_.entity_name,_)
 
 return _
 

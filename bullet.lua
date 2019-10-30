@@ -11,7 +11,12 @@ end
 -- todo: generic way
 local destroy=function(entity_)
 	-- коллизия внутри удаляется
-	entity.remove(entity_)
+	Entity.remove(entity_)
+end
+
+local hit_enemy=function(bullet,enemy)
+	-- wip
+	Entity.remove(bullet)
 end
 
 
@@ -19,7 +24,20 @@ _.update=function(bullet,dt)
 	bullet.x=bullet.x-love.math.random()+0.5
 	bullet.y=bullet.y-love.math.random()-1
 	
-	collision.moved(bullet)
+	Collision.moved(bullet)
+	
+	local colliding=Collision.getAtEntity(bullet)
+	
+	if colliding~=nil then
+		for k,colliding_info in pairs(colliding) do
+			-- log("bullet colliding with:"..entity.toString(colliding_info))
+			local colliding_entity=Collision.get_entity_by_shape(colliding_info.collision_shape)
+			
+			if colliding_entity.entity_name=="enemy" then
+				hit_enemy(bullet, colliding_entity)
+			end
+		end
+	end
 	
 	-- opt destoy off-screen on slow update
 	
@@ -30,12 +48,12 @@ _.update=function(bullet,dt)
 end
 
 
-local _sprite=res.bullet
+local _sprite=Res.bullet
 local _w=_sprite:getWidth()
 local _h=_sprite:getHeight()
 
 _.new=function(node_name,parent)
-	local result=node.new(node_name,parent,_.entity_name)
+	local result=Node.new(node_name,parent,_.entity_name)
 	
 	result.sprite=_sprite
 	result.x=110
@@ -51,7 +69,7 @@ _.new=function(node_name,parent)
 	return result
 end
 
-entity.addCode(_.entity_name,_)
+Entity.addCode(_.entity_name,_)
 
 return _
 

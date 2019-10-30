@@ -225,18 +225,30 @@ end
 _.internals={}
 _.internals.initModule=initModule
 
+
+_.id=require(folderOfThisFile.."/module/id")
+initModule(_.id)
+
+_.baseEntity=require(folderOfThisFile.."/module/entity/base_entity")
+initModule(_.baseEntity)
+
+_.pointer=require(folderOfThisFile.."/module/entity/pointer")
+_.pointer.pow=_
+
 _.newCollision=function()
 	local result=require(folderOfThisFile.."/module/collision")
 	initModule(result)
 	return result
 end
 
+-- Для игр с 1 миром
+_.collision=_.newCollision()
+
+
 
 -- extends lua, no pow integration
 require(folderOfThisFile.."/module/lua")
 
-_.id=require(folderOfThisFile.."/module/id")
-initModule(_.id)
 
 _.receiver=require(folderOfThisFile.."/module/net/receiver")
 initModule(_.receiver)
@@ -248,11 +260,11 @@ initModule(_.entity)
 local _entity=_.entity
 
 
-_.pointer=require(folderOfThisFile.."/module/entity/pointer")
+
 -- это сервисная сущность+код
 -- initModule(_.entity)
 
-_.baseEntity=require(folderOfThisFile.."/module/entity/base_entity")
+
 
 
 local drawGame=function()
@@ -269,13 +281,12 @@ _.draw=function()
 	love.graphics.push()
 	love.graphics.scale(2,2)
 	
-	-- todo: resolve entity reference
-	entity.drawUi()
+	_entity.drawUi()
 	love.graphics.pop()
 	
 	--unscaled ui
 	love.graphics.scale(1,1)
-	entity.drawUnscaledUi()
+	_entity.drawUnscaledUi()
 end
 
 
@@ -326,7 +337,7 @@ _.load=function()
 end
 
 _.getWorldCoords=function(screenX,screenY)
-	return cscreen.project(screenX,screenY)
+	return Cscreen.project(screenX,screenY)
 end
 
 -- in world coords

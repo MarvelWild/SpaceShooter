@@ -9,7 +9,7 @@ _.new=function(name, parent, entity_name)
 	
 	local result
 	if entity_name~=nil then
-		result=base_entity.new(entity_name,false)
+		result=Base_entity.new(entity_name,false)
 	else
 		-- нода без сущности, ок
 		result={}

@@ -43,8 +43,8 @@ local _debugShape=nil
 
 
 -- фигура коллизии это не спрайт, а отдельное описание.
-_.getEntityShape=function(entity_)
-	local x,y,w,h=entity.getCollisionBox(entity_)
+local createEntityShape=function(entity_)
+	local x,y,w,h=_entity.getCollisionBox(entity_)
 	local shape = _hc:rectangle(x,y,w,h)
 	return shape
 end
@@ -57,7 +57,7 @@ _.add=function(entity_)
 	end
 	
 	
-	_log("Collision.add:"..entity.toString(entity_))
+	_log("Collision.add:".._entity.toString(entity_))
 --	_log(debug.traceback()) -- search key: stack traceback:
 	
 	
@@ -66,12 +66,13 @@ _.add=function(entity_)
 		return
 	end
 	
-	local shape = _.getEntityShape(entity_)
+	local shape = createEntityShape(entity_)
 	if shape==nil then 
-		_log("entity has no shape:"..entity.toString(entity_))
+		_log("entity has no shape:".._entity.toString(entity_))
 		return 
 	end
 	
+	entity_.collision_shape=shape
 	_shapeByEntity[entity_]=shape
 	_entityByShape[shape]=entity_ 
 	
@@ -89,10 +90,10 @@ end
 
 
 _.remove=function(entity_)
-	_log("collision.remove:"..entity.toString(entity_))
+	_log("collision.remove:".._entity.toString(entity_))
 	local shape=_shapeByEntity[entity_]
 	if not shape then
-		_log("warn: entity wasnt in collision system:"..entity.toString(entity_))
+		_log("warn: entity wasnt in collision system:".._entity.toString(entity_))
 		return
 	end
 	
@@ -173,22 +174,27 @@ end
 
 
 -- returns array or nil
-_.getAtEntity=function(entity)
+_.getAtEntity=function(entity_)
 --	local x,y,w,h=Entity.getCollisionBox(entity)
 --	return _.getAtRect(x,y,w,h)
-	local shape=_.getEntityShape(entity)
+
+	--opt: entity init collision should set this once?
+	local shape=entity_.collision_shape
 	local collisions=_hc:collisions(shape)
 	
 	local result=nil
 	for shape,v in pairs(collisions) do
 		local collisionEntity=_entityByShape[shape]
-		if not entity.equals(collisionEntity, entity) then 
+		if not Entity.equals(collisionEntity, entity_) then 
 			if result==nil then result={} end
 			table.insert(result,collisionEntity)
 		end
 	end
 	
-	_log("Collision.getAtEntity. Count:"..#result)
+	local count=0
+	if result~=nil then count=#result end
+	
+	_log("Collision.getAtEntity. Count:"..count)
 	return result	
 end
 
@@ -210,5 +216,11 @@ end
 
 
 
+
+
+_.get_entity_by_shape=function(shape)
+	local result = _entityByShape[shape]
+	return result
+end
 
 return _

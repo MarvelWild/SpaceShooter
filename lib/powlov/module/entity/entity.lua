@@ -23,10 +23,14 @@ local _uiDrawsUnscaled={}
 
 -- возмжоность получить все зарегенные
 local _all={}
+local _collision
 
 local _pow=nil
 _.init=function(pow)
 	_pow=pow
+	
+	-- todo: случай когда несколько миров
+	_collision=pow.collision
 end
 
 
@@ -105,7 +109,7 @@ _.add=function(entity)
 	-- todo: сущность не знает про этот сервис, сервис инжектится в пост-создание сущности
 	
 	if entity.is_collision then
-		collision.add(entity)
+		_collision.add(entity)
 	end
 end
 
@@ -144,7 +148,7 @@ _.remove=function(entity)
 	_simulations[entity]=nil
 	
 	if entity.is_collision then
-		collision.remove(entity)
+		_collision.remove(entity)
 	end
 end
 

@@ -6,7 +6,7 @@ _.draw=function(bg)
 	
 	
 	love.graphics.setColor( 1, 1, 1, 0.5)
-	love.graphics.draw(res.bg, bg.x, bg.y)
+	love.graphics.draw(Res.bg, bg.x, bg.y)
 	love.graphics.setColor( 1, 1, 1, 1)
 	
 end
@@ -18,7 +18,7 @@ end
 
 
 _.new=function(node_name,parent)
-	local result=node.new(node_name,parent,_.entity_name)
+	local result=Node.new(node_name,parent,_.entity_name)
 	result.x=0
 	result.y=-3880
 	result.speed=0.2
@@ -26,7 +26,7 @@ _.new=function(node_name,parent)
 	return result
 end
 
-entity.addCode(_.entity_name,_)
+Entity.addCode(_.entity_name,_)
 
 return _
 
