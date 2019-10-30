@@ -30,16 +30,23 @@ _.update=function(bullet,dt)
 end
 
 
-
+local _sprite=res.bullet
+local _w=_sprite:getWidth()
+local _h=_sprite:getHeight()
 
 _.new=function(node_name,parent)
 	local result=node.new(node_name,parent,_.entity_name)
-	result.sprite=res.bullet
+	
+	result.sprite=_sprite
 	result.x=110
 	result.y=40
+	result.w=_w
+	result.h=_h
 	result.scale=1
 	result.speed=1
 	result.orientation=0
+	
+	result.is_collision=true
 	
 	return result
 end
