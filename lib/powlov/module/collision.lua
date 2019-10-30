@@ -16,9 +16,12 @@ local _shapeByEntity={}
 --shape by entity
 local _entityByShape={}
 
+local _entity
+
 _.init=function(pow)
 	_pow=pow
 	_hc=pow.hc.new()
+	_entity=pow.entity
 	_pointer=_hc:point(0,0)
 	
 	--это точка для поиска её коллизий в функциях точечных коллизий
@@ -105,7 +108,7 @@ _.moved=function(entity)
 	
 	-- bug: still not working
 	if movedRect~=nil then
-		movedRect:moveTo(Entity.getCenter(entity))
+		movedRect:moveTo(_entity.getCenter(entity))
 	else
 		-- Pantera. Its ok for now
 		-- также сюда приходим при использовании котла

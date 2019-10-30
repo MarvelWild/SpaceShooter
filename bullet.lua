@@ -19,9 +19,9 @@ _.update=function(bullet,dt)
 	bullet.x=bullet.x-love.math.random()+0.5
 	bullet.y=bullet.y-love.math.random()-1
 	
-	-- wip collision model
+	collision.moved(bullet)
 	
-	-- wip destoy off-screen on slow update
+	-- opt destoy off-screen on slow update
 	
 	if bullet.y<0 then
 		destroy(bullet)

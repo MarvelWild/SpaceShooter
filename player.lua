@@ -10,6 +10,9 @@ _.draw=function(player)
 	love.graphics.draw(res.ship1.ship1, player.x, player.y)
 end
 
+local _cooldown=64
+local _cooldown_ends=0
+
 _.update=function(player_,dt)
 	-- todo: call update on all nodes
 	local is_left=love.keyboard.isDown("a")
@@ -52,11 +55,16 @@ _.update=function(player_,dt)
 	
 	local is_fire=love.keyboard.isDown("space")
 	if is_fire then
-		-- wip
-		local bullet=bullet_code.new(game_node)
-		bullet.x=player.x+8
-		bullet.y=player.y
-		entity.add(bullet)
+		local frame=pow.getFrame()
+		if frame > _cooldown_ends then
+			_cooldown_ends=frame+_cooldown
+		
+			local bullet=bullet_code.new(game_node)
+			bullet.x=player.x+8
+			bullet.y=player.y
+			entity.add(bullet)
+		end
+	
 	end
 	
 	
