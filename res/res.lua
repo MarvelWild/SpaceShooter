@@ -7,6 +7,13 @@ _.bg=love.graphics.newImage("res/space1.png")
 _.bg2=love.graphics.newImage("res/image/space2.png")
 _.bg3=love.graphics.newImage("res/image/space3.png")
 _.bg4=love.graphics.newImage("res/image/space4.png")
+
+_.all_bg={
+		_.bg,
+		_.bg2,
+		_.bg3,
+		_.bg4,
+	}
 -- todo: automate this
 --_.bg:setFilter("nearest", "nearest")
 --_.ship1.ship1:setFilter("nearest", "nearest")

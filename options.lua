@@ -1,6 +1,6 @@
 local options={}
 
-options.music=false
+options.music=true
 
 
 return options

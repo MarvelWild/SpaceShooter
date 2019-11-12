@@ -53,6 +53,9 @@ end
 
 
 part1.update=function()
+	_spawn_cooldown=_spawn_cooldown-0.03
+	if _spawn_cooldown<2 then _spawn_cooldown=2 end
+
 	_spawn_random()
 end
 
