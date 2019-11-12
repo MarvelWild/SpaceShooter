@@ -1,9 +1,9 @@
 -- точка для поиска коллизий
 local _={}
-_.entityName="pointer"
+_.entity_name="pointer"
 
 _.new=function()
-	local result=_.pow.baseEntity.new(_.entityName,true)
+	local result=_.pow.baseEntity.new(_.entity_name,true)
 	
 	return result
 end

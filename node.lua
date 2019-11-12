@@ -1,4 +1,5 @@
 -- node is entity
+-- todo: перенести в entity, поддержка иерархии (для разных целей, например удаление с дочерними, или зацепить координаты за родителя)
 
 local _={}
 
@@ -28,7 +29,7 @@ _.new=function(name, parent, entity_name)
 			
 			log("calling children draw:"..child.name)
 			
-			child:draw()
+			--child:draw()
 		end
 	end
 	

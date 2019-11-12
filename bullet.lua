@@ -14,8 +14,10 @@ local destroy=function(entity_)
 	Entity.remove(entity_)
 end
 
+
+
 local hit_enemy=function(bullet,enemy)
-	-- wip
+	Enemy_code.take_damage(enemy,bullet.damage)
 	Entity.remove(bullet)
 end
 
@@ -29,11 +31,11 @@ _.update=function(bullet,dt)
 	local colliding=Collision.getAtEntity(bullet)
 	
 	if colliding~=nil then
-		for k,colliding_info in pairs(colliding) do
+		for k,colliding_entity in pairs(colliding) do
 			-- log("bullet colliding with:"..entity.toString(colliding_info))
-			local colliding_entity=Collision.get_entity_by_shape(colliding_info.collision_shape)
 			
-			if colliding_entity.entity_name=="enemy" then
+			local entity_name=colliding_entity.entity_name
+			if entity_name=="enemy" then
 				hit_enemy(bullet, colliding_entity)
 			end
 		end
@@ -62,7 +64,9 @@ _.new=function(node_name,parent)
 	result.h=_h
 	result.scale=1
 	result.speed=1
+	result.damage=2
 	result.orientation=0
+	result.is_player=parent.entity=="player"
 	
 	result.is_collision=true
 	

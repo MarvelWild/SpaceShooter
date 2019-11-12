@@ -11,10 +11,13 @@ _.draw=function(enemy)
 end
 
 _.update=function(enemy,dt)
-	enemy.x=enemy.x-love.math.random()+0.5
-	enemy.y=enemy.y-love.math.random()+0.5
-	
+	enemy.ai.update(enemy)
 	Collision.moved(enemy)
+	if enemy.y>Game_height+100 then
+		Entity.remove(enemy)
+	end
+
+	
 end
 
 
@@ -33,13 +36,25 @@ _.new=function(node_name,parent)
 	result.w=_w
 	result.h=_h
 	result.orientation=0
+	result.hp=4
 	
+	result.ai=Ai.basic
 	result.is_collision=true
 	
 	Base_entity.init_collision(result)
+	result.code=_
+	
 	
 	return result
 end
+
+_.take_damage=function(enemy, amount)
+	enemy.hp=enemy.hp-amount
+	if enemy.hp<=0 then
+		Entity.remove(enemy)
+	end
+end
+
 
 Entity.addCode(_.entity_name,_)
 

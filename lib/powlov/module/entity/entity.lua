@@ -52,15 +52,6 @@ _.add=function(entity)
 	-- entityCode is module with draw,update etc contolling current entity data/dto
 	local entityCode=_.getCode(entity)
 	
-	if entityCode==nil or entity.entityName=="panther" then
-		local a=1
-	end
-	
-	if entityCode==nil then
-		local a=1
-	end
-	
-	
 	local draw=entityCode.draw
 	if draw~=nil then
 		table.insert(_drawable,{entity=entity,draw=draw})
@@ -113,6 +104,18 @@ _.add=function(entity)
 	end
 end
 
+_.toString=function(entity)
+	if entity==nil then return "nil" end
+	
+	local result=entity.entity_name
+	if entity.id~=nil then
+		result=result.." id:"..tostring(entity.id)..' xy:'..
+			tostring(entity.x)..','..tostring(entity.y)
+	end
+	
+	return result
+end
+
 -- drawables are array to make it sortable
 local removeDrawable=function(entity,container)
 	--local countBefore
@@ -131,7 +134,7 @@ local removeDrawable=function(entity,container)
 	-- log("drawables after remove:"..count)
 	
 	if count>0 then
-		log("error: removeDrawable failed. Entity was not in drawables:".._ets(entity))
+		log("error: removeDrawable failed. Entity was not in drawables:".._.toString(entity))
 	end
 end
 
@@ -255,24 +258,14 @@ _.mousePressed=function(gameX,gameY,button,istouch)
 end
 
 
-_.toString=function(entity)
-	if entity==nil then return "nil" end
-	
-	local result=entity.entityName
-	if entity.id~=nil then
-		result=result.." id:"..tostring(entity.id)..' xy:'..
-			tostring(entity.x)..','..tostring(entity.y)
-	end
-	
-	return result
-end
+
 
 -- заполняется: addCode
 local _entityCode={}
 
 -- register code that corresponds to data object
-_.addCode=function(entityName,code)
-	_entityCode[entityName]=code
+_.addCode=function(entity_name,code)
+	_entityCode[entity_name]=code
 end
 
 
@@ -283,16 +276,16 @@ _.getCode=function(entity)
 		-- service does not separate data, everything is a single module
 		return entity
 	else
-		local result = _.getCodeByName(entity.entityName)
+		local result = _.getCodeByName(entity.entity_name)
 		
 		return result
 	end
 end
 
-_.getCodeByName=function(entityName)
-		local result=_entityCode[entityName]
+_.getCodeByName=function(entity_name)
+		local result=_entityCode[entity_name]
 		if (result==nil) then
-			-- log("error: entity has no code:"..entityName)
+			-- log("error: entity has no code:"..entity_ame)
 		end
 		
 		return result 
@@ -343,7 +336,7 @@ _.equals=function(entity1,entity2)
 		return false 
 	end
 	
-	return entity1.id==entity2.id and entity1.entityName==entity2.entityName
+	return entity1.id==entity2.id and entity1.entity_name==entity2.entity_name
 end
 
 _.unload_state=function()
@@ -359,6 +352,11 @@ _.unload_state=function()
 	end
 end
 
+_.set_sprite=function(entity, sprite)
+	entity.sprite=sprite
+	entity.w=sprite:getWidth()
+	entity.h=sprite:getHeight()
+end
 
 
 return _

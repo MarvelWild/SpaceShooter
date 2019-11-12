@@ -47,8 +47,8 @@ _.new=function(code,requestId)
 	--log("Event.new:".._traceback())
 	local event={}
 	
-	event.entityName="Event"
-	event.id=_id.new(event.entityName)
+	event.entity_name="Event"
+	event.id=_id.new(event.entity_name)
 	event.login=_netState.login
 	if requestId~=nil then
 		event.requestId=requestId

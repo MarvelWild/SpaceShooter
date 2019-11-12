@@ -1,4 +1,3 @@
--- player is node
 local _={}
 
 _.entity_name="player"
@@ -7,13 +6,83 @@ local max_y=220
 local min_y=60
 
 _.draw=function(player)
+	if player.invulnerable then
+		love.graphics.setColor(0.8,1,1,0.5)
+	end
 	love.graphics.draw(Res.ship1.ship1, player.x, player.y)
+	if player.invulnerable then
+		love.graphics.setColor(1,1,1,1)
+	end
 end
 
+-- todo: gun code
 local _cooldown=64
 local _cooldown_ends=0
 
+
+
+local apply_invulnerability=function(player)
+	local frame=Pow.getFrame()
+	player.invulnerability_ends=frame+60
+	player.invulnerable=true
+end
+
+local die=function()
+	log("player dead")
+	-- wip
+end
+
+local take_damage=function(player, amount)
+	player.hp=player.hp-amount
+	if player.hp<=0 then
+		die()
+	end
+end
+
+
+local collide_enemy=function(player,enemy)
+	if player.invulnerable then return end
+	apply_invulnerability(player)
+	take_damage(player,1)
+	Enemy_code.take_damage(enemy,6)
+end
+
+
+local update_collisions=function(player)
+	Collision.moved(player)
+	
+		local colliding=Collision.getAtEntity(player)
+	
+	if colliding~=nil then
+		for k,colliding_entity in pairs(colliding) do
+			local entity_name=colliding_entity.entity_name
+			if entity_name=="enemy" then
+				collide_enemy(player, colliding_entity)
+			end
+		end
+	end
+end
+
+local do_fire=function(player)
+	local is_fire=love.keyboard.isDown("space")
+	if is_fire then
+		local frame=Pow.getFrame()
+		if frame > _cooldown_ends then
+			_cooldown_ends=frame+_cooldown
+		
+			local bullet=Bullet_code.new(Game_node,player)
+			bullet.x=player.x+8
+			bullet.y=player.y
+			Entity.add(bullet)
+		end
+	end
+end
+
+
+
 _.update=function(player_,dt)
+	
+	
 	-- todo: call update on all nodes
 	local is_left=love.keyboard.isDown("a")
 	local is_right=love.keyboard.isDown("d")
@@ -53,24 +122,18 @@ _.update=function(player_,dt)
 	local max_w=Game_width-16 -- p.w
 	if player_.x>max_w then player_.x=max_w end
 	
-	local is_fire=love.keyboard.isDown("space")
-	if is_fire then
+	do_fire(player_)
+	update_collisions(player_)
+
+	if player_.invulnerable then
 		local frame=Pow.getFrame()
-		if frame > _cooldown_ends then
-			_cooldown_ends=frame+_cooldown
-		
-			local bullet=Bullet_code.new(Game_node)
-			bullet.x=Player.x+8
-			bullet.y=Player.y
-			Entity.add(bullet)
+		if frame>player_.invulnerability_ends then
+			player_.invulnerable=false
 		end
-	
+		
 	end
 	
-	
 end
-
-
 
 _.new=function(node_name,parent)
 	local result=Node.new(node_name,parent,_.entity_name)
@@ -79,6 +142,8 @@ _.new=function(node_name,parent)
 	result.w=16
 	result.h=16
 	result.speed=1
+	result.hp=5
+	result.invulnerable=false
 	
 	result.is_collision=true
 	

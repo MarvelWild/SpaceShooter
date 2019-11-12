@@ -13,16 +13,17 @@ _.init=function(pow)
 end
 
 -- todo: check is name used
-_.new=function(entityName,isService)
-	assert(entityName)
+-- service означает одиночный инстанс, без ид
+_.new=function(entity_name,isService)
+	assert(entity_name)
 	local result={}
 	
 	if not isService then
-		result.id=_new_id(entityName)
+		result.id=_new_id(entity_name)
 	end
 	
 	result.isService=isService
-	result.entityName=entityName
+	result.entity_name=entity_name
 	result.drawLayer=0
 	
 	
@@ -36,7 +37,7 @@ _.getReference=function(entity)
 	
 	result.id=entity.id
 	-- result.login=entity.login no local ent/thin client
-	result.entityName=entity.entityName
+	result.entity_name=entity.entity_name
 	result.levelName=entity.levelName
 	
 	return result
@@ -45,7 +46,7 @@ end
 _.referenceEquals=function(ref1,ref2)
 	if ref1.id~=ref2.id then return false end
 	
-	if ref1.entityName~=ref2.entityName then return false end
+	if ref1.entity_name~=ref2.entity_name then return false end
 	
 	return true
 end
@@ -66,7 +67,7 @@ _.isReferencedBy=function(entity,ref)
 end
 _.refToSting=function(entityRef)
 	if entityRef==nil then return "nil" end
-	return entityRef.id..":"..entityRef.entityName
+	return entityRef.id..":"..entityRef.entity_name
 end
 
 -- calc w,h from sprite

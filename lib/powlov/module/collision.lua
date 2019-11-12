@@ -52,7 +52,7 @@ end
 
 
 _.add=function(entity_)
-	if entity_.entityName=="player" then
+	if entity_.entity_name=="player" then
 		local a=1
 	end
 	
@@ -114,7 +114,7 @@ _.moved=function(entity)
 		-- Pantera. Its ok for now
 		-- также сюда приходим при использовании котла
 		-- чтобы добавить коллизию - нужно чтобы было в _shapeByEntity -> Collision.add
-		log("entity has no collision:"..entity.entityName)
+		log("entity has no collision:"..entity.entity_name)
 	end
 	-- _debugShape=movedRect
 end
@@ -194,7 +194,7 @@ _.getAtEntity=function(entity_)
 	local count=0
 	if result~=nil then count=#result end
 	
-	_log("Collision.getAtEntity. Count:"..count)
+	-- _log("Collision.getAtEntity. Count:"..count)
 	return result	
 end
 

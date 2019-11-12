@@ -11,31 +11,39 @@ Id=Pow.id
 Node=require "node"
 Player_code=require "player"
 Enemy_code=require "enemy"
+Enemy2_code=require "enemy/enemy2"
+Space_invader_code=require "enemy/space_invader"
 Bullet_code=require "bullet"
 Bg_code=require "bg"
 local debug_x=require "dbg"
 Cscreen=require "lib/CScreen/cscreen"
+Random_spawner=require "system/random_spawner"
+Ai=require "ai"
+Beastiary=require "beastiary"
 
 Collision=Pow.newCollision()
 debug_x.pow=Pow
 log=debug_x.log
 
--- wip
--- collision=pow.
 
 Root_node=Node.new("root")
 Game_node=Node.new("game",Root_node)
 Player=Player_code.new(Game_node)
-local enemy=Enemy_code.new(Game_node)
-local enemy2=Enemy_code.new(Game_node)
-local enemy3=Enemy_code.new(Game_node)
 Bg=Bg_code.new(Game_node)
 
 Game_width=320
 Game_height=240
 
+Current_level=require "level/tunnel_1"
+
 
 --love.graphics.setDefaultFilter( "nearest", "nearest" )
+
+local _load_level=function(level)
+	-- wip
+		Entity.add(level)
+end
+
 
 love.load=function()
 	
@@ -43,13 +51,8 @@ love.load=function()
 	
 	Entity.add(Bg)
 	Entity.add(Player)
-	Entity.add(enemy)
-	-- todo: apply scale to collision model
---	enemy2.scale=2
---	enemy2.x=enemy.x+60
---	enemy3.x=enemy2.x+60
---	entity.add(enemy2)
---	entity.add(enemy3)
+	_load_level(Current_level)
+
 	Pow.load()
 	
 	if Options.music then
@@ -69,7 +72,8 @@ love.draw=function()
 	
 
 	Cscreen.cease()
-	love.graphics.print("mouse at:"..game_x..","..game_y)
+	--love.graphics.print("mouse at:"..game_x..","..game_y)
+	love.graphics.print("hp:"..Player.hp,0,16)
 end
 
 love.update=function()
