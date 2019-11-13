@@ -23,7 +23,16 @@ _.all_bg={
 _.dot=love.graphics.newImage("res/dot_white.png")
 
 _.music={}
-_.music.track1=love.audio.newSource("res/music/track1.mp3","stream")
+
+
+local load_music=function(path)
+	local info=love.filesystem.getInfo(path)
+	if info==nil then return end
+	return love.audio.newSource(path,"stream")
+end
+
+
+_.music.track1=load_music("res/unlicensed/track1.mp3")
 _.enemy1=love.graphics.newImage("res/image/enemy1/enemy1.png")
 _.enemy2=love.graphics.newImage("res/image/enemy2.png")
 _.bullet=love.graphics.newImage("res/image/bullet.png")

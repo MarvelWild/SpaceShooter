@@ -2,6 +2,7 @@ local isDebug=arg[#arg] == "-debug"
 if isDebug then require("mobdebug").start() end
 
 Res=require "res.res"
+Audio=require "audio"
 Options=require "options"
 Pow=require "lib/powlov/pow"
 Pow.setup({})
@@ -56,7 +57,7 @@ love.load=function()
 	Pow.load()
 	
 	if Options.music then
-		Res.music.track1:play()
+		Audio.play_music(Res.music.track1)
 	end
 	
 end

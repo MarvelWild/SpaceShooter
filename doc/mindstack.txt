@@ -1,10 +1,12 @@
+main menu
+
 switching backgrounds mode
 
-space invader enemy
++space invader enemy
 
 
 	
->коллайд с врагом
++коллайд с врагом
 
 
 сюжет взлетели с родной планеты и отправились в путешествие
