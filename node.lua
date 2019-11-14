@@ -19,21 +19,6 @@ _.new=function(name, parent, entity_name)
 	result.parent=parent
 	result.children=children
 	
-	local draw=function()
-		
-		log("drawing node:"..result.name)
-		
-		-- todo draw self
-		-- todo sorting order, delayed draw - сортированный список
-		for k,child in pairs(children) do
-			
-			log("calling children draw:"..child.name)
-			
-			--child:draw()
-		end
-	end
-	
-	result.draw=draw
 	
 	if parent~=nil then
 		table.insert(parent.children, result)

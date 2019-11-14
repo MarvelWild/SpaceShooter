@@ -69,6 +69,10 @@ local do_fire=function(player)
 		local frame=Pow.getFrame()
 		if frame > _cooldown_ends then
 			_cooldown_ends=frame+_cooldown
+			
+			
+		_cooldown=_cooldown-1
+		if _cooldown<1 then _cooldown=1 end
 		
 			local bullet=Bullet_code.new(Game_node,player)
 			bullet.x=player.x+8
