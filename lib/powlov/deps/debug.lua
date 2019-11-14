@@ -63,6 +63,12 @@ channels.main=_mainChannel
 
 -- forceConsole: show message in console even if its channel is disabled
 _debug.log=function(message,channelName,forceConsole)
+	
+	if channelName=="collision" then
+		a=1
+	end
+	
+	
 	-- local time = love.timer.getTime() -- "\t"..time
 	
 	if string.find(message,"error") then

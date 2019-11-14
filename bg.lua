@@ -17,8 +17,8 @@ end
 
 
 
-_.new=function(node_name,parent)
-	local result=Node.new(node_name,parent,_.entity_name)
+_.new=function()
+	local result=Base_entity.new(_.entity_name,nil)
 	result.x=0
 	result.y=-3680
 	result.speed=0.2

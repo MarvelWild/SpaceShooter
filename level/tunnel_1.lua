@@ -1,4 +1,4 @@
-local _=Base_entity.new("tunnel_1",true)
+local _=Base_entity.new("tunnel_1",nil,{is_service=true})
 
 local _spawn_cooldown=100
 local _spawn_after=0

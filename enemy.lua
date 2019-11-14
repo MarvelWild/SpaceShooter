@@ -26,8 +26,8 @@ local _w=_sprite:getWidth()
 local _h=_sprite:getHeight()
 
 
-_.new=function(node_name,parent)
-	local result=Node.new(node_name,parent,_.entity_name)
+_.new=function(parent)
+	local result=Base_entity.new(_.entity_name,parent)
 	result.x=110
 	result.y=40
 	result.scale=1

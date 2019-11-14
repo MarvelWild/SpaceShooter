@@ -13,19 +13,25 @@ _.init=function(pow)
 end
 
 -- todo: check is name used
--- service означает одиночный инстанс, без ид
-_.new=function(entity_name,isService)
+-- options.is_service означает одиночный инстанс, без ид
+_.new=function(entity_name,parent,options)
 	assert(entity_name)
 	local result={}
 	
-	if not isService then
+	if not is_service then
 		result.id=_new_id(entity_name)
 	end
 	
-	result.isService=isService
+	result.parent=parent
+	result.children={}
+	
+	if parent~=nil then
+		table.insert(parent.children, result)
+	end
+	
+	result.is_service=options~=nil and options.is_service
 	result.entity_name=entity_name
 	result.drawLayer=0
-	
 	
 	return result
 end

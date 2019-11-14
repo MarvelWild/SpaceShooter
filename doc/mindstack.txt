@@ -1,3 +1,17 @@
+	>side gun
+	+separate gun from player
+>more guns
+
+
+	move from wall to wall
+player ai
+
++make log clean
+
+	dbg.lua
+	lib\powlov\deps\debug.lua
+merge 2 debug modules:
+
 main menu
 
 switching backgrounds mode
@@ -48,3 +62,5 @@ is code
 
 режим второй игрок бомбер на мыши
 или на втором саме
+
++merge node and entity

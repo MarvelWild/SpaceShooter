@@ -15,11 +15,6 @@ _.draw=function(player)
 	end
 end
 
--- todo: gun code
-local _cooldown=64
-local _cooldown_ends=0
-
-
 
 local apply_invulnerability=function(player)
 	local frame=Pow.getFrame()
@@ -64,20 +59,11 @@ local update_collisions=function(player)
 end
 
 local do_fire=function(player)
-	local is_fire=love.keyboard.isDown("space")
+	local is_fire=Options.autofire or love.keyboard.isDown("space")
+	
 	if is_fire then
-		local frame=Pow.getFrame()
-		if frame > _cooldown_ends then
-			_cooldown_ends=frame+_cooldown
-			
-			
-		_cooldown=_cooldown-1
-		if _cooldown<1 then _cooldown=1 end
-		
-			local bullet=Bullet_code.new(Game_node,player)
-			bullet.x=player.x+8
-			bullet.y=player.y
-			Entity.add(bullet)
+		for k,gun in pairs(player.guns) do
+			gun.fire()
 		end
 	end
 end
@@ -139,8 +125,8 @@ _.update=function(player_,dt)
 	
 end
 
-_.new=function(node_name,parent)
-	local result=Node.new(node_name,parent,_.entity_name)
+_.new=function()
+	local result=Base_entity.new(_.entity_name,nil)
 	result.x=110
 	result.y=220
 	result.w=16
@@ -150,6 +136,11 @@ _.new=function(node_name,parent)
 	result.invulnerable=false
 	
 	result.is_collision=true
+	local gun1=Gun1.new()
+	result.guns={
+		gun1
+	}
+	
 	
 	return result
 end

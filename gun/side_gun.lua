@@ -1,10 +1,8 @@
 -- basic gun, shoots bullets
 
--- todo: merge cooldown logic of all guns
-
 local _={}
 
-_.entity_name="gun1"
+_.entity_name="side_gun"
 
 _.fire=function(gun)
 	local frame=Pow.getFrame()

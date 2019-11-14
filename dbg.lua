@@ -48,6 +48,7 @@ channels.event=newChannel("event")
 channels.verbose=newChannel("verbose")
 channels.entity=newChannel("entity")
 channels.input=newChannel("input")
+channels.collision=newChannel("collision")
 
 -- all console settings
 channels.entity.useConsole=false
@@ -55,6 +56,7 @@ channels.input.useConsole=false
 channels.verbose.useConsole=false
 channels.event.useConsole=false
 channels.db.useConsole=false
+channels.collision.useConsole=false
 
 -- used if no channel name provided
 local _mainChannel=newChannel("main")

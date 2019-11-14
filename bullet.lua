@@ -54,8 +54,8 @@ local _sprite=Res.bullet
 local _w=_sprite:getWidth()
 local _h=_sprite:getHeight()
 
-_.new=function(node_name,parent)
-	local result=Node.new(node_name,parent,_.entity_name)
+_.new=function(parent)
+	local result=Base_entity.new(_.entity_name,parent)
 	
 	result.sprite=_sprite
 	result.x=110
@@ -69,6 +69,7 @@ _.new=function(node_name,parent)
 	result.is_player=parent.entity=="player"
 	
 	result.is_collision=true
+	result.code=_
 	
 	return result
 end

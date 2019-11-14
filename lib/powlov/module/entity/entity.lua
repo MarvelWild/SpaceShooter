@@ -38,7 +38,7 @@ _.beforeAdd=nil
 --добавить сущность в менеджер
 -- use Db.add
 _.add=function(entity)
-	log('adding entity:'.._.toString(entity),'entity',true)
+	log('adding entity:'.._.toString(entity),'entity')
 	
 	local beforeAdd=_.beforeAdd
 	if beforeAdd~=nil then
@@ -51,6 +51,10 @@ _.add=function(entity)
 	
 	-- entityCode is module with draw,update etc contolling current entity data/dto
 	local entityCode=_.getCode(entity)
+	if entityCode==nil then
+		log("error:no entity code")
+	end
+	
 	
 	local draw=entityCode.draw
 	if draw~=nil then
@@ -272,7 +276,7 @@ end
 -- description of code functions:
 -- draw/upd/etc code for entity data/dto
 _.getCode=function(entity)
-	if entity.isService then
+	if entity.is_service then
 		-- service does not separate data, everything is a single module
 		return entity
 	else

@@ -9,7 +9,9 @@ Pow.setup({})
 Base_entity=Pow.baseEntity
 Entity=Pow.entity
 Id=Pow.id
-Node=require "node"
+
+Gun1=require "gun/gun1"
+
 Player_code=require "player"
 Enemy_code=require "enemy"
 Enemy2_code=require "enemy/enemy2"
@@ -23,14 +25,16 @@ Ai=require "ai"
 Beastiary=require "beastiary"
 
 Collision=Pow.newCollision()
+
+
+
+
 debug_x.pow=Pow
 log=debug_x.log
 
 
-Root_node=Node.new("root")
-Game_node=Node.new("game",Root_node)
-Player=Player_code.new(Game_node)
-Bg=Bg_code.new(Game_node)
+Player=Player_code.new()
+Bg=Bg_code.new()
 
 Game_width=320
 Game_height=240
