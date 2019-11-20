@@ -25,10 +25,19 @@ _.fire=function(gun)
 		
 		gun.cooldown=cooldown
 	
-		local bullet=Bullet_code.new(player)
-		bullet.x=player.x+8
-		bullet.y=player.y
-		Entity.add(bullet)
+		local bullet1=Bullet_code.new(player)
+		bullet1.x=player.x+8
+		bullet1.y=player.y
+		bullet1.speed_x=1
+		bullet1.speed_y=0
+		Entity.add(bullet1)
+		
+		local bullet2=Bullet_code.new(player)
+		bullet2.x=player.x
+		bullet2.y=player.y
+		bullet2.speed_x=-1
+		bullet2.speed_y=0
+		Entity.add(bullet2)
 	end
 	
 	gun.cooldown=cooldown

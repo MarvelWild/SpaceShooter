@@ -17,14 +17,20 @@ end
 
 
 local hit_enemy=function(bullet,enemy)
-	Enemy_code.take_damage(enemy,bullet.damage)
+	Enemy_code.take_damage(enemy,bullet.damage,bullet.parent)
 	Entity.remove(bullet)
+end
+
+local destroy_out_of_screen=function(bullet)
+	if bullet.y<0 or bullet.x<0 or bullet.x>Game_width or bullet.y>Game_height then
+		destroy(bullet)
+	end
 end
 
 
 _.update=function(bullet,dt)
-	bullet.x=bullet.x-love.math.random()+0.5
-	bullet.y=bullet.y-love.math.random()-1
+	bullet.x=bullet.x+bullet.speed_x
+	bullet.y=bullet.y+bullet.speed_y
 	
 	Collision.moved(bullet)
 	
@@ -43,9 +49,8 @@ _.update=function(bullet,dt)
 	
 	-- opt destoy off-screen on slow update
 	
-	if bullet.y<0 then
-		destroy(bullet)
-	end
+	destroy_out_of_screen(bullet)
+	
 	
 end
 
@@ -63,7 +68,10 @@ _.new=function(parent)
 	result.w=_w
 	result.h=_h
 	result.scale=1
-	result.speed=1
+	result.speed_x=0
+	
+	-- fly top by default
+	result.speed_y=-1
 	result.damage=2
 	result.orientation=0
 	result.is_player=parent.entity=="player"

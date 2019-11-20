@@ -15,6 +15,12 @@ _.draw=function(player)
 	end
 end
 
+_.drawUnscaledUi=function(player)
+	love.graphics.print("score:"..player.score,0, 32)
+	love.graphics.print("hp:"..player.hp,0,16)
+end
+
+
 
 local apply_invulnerability=function(player)
 	local frame=Pow.getFrame()
@@ -39,7 +45,7 @@ local collide_enemy=function(player,enemy)
 	if player.invulnerable then return end
 	apply_invulnerability(player)
 	take_damage(player,1)
-	Enemy_code.take_damage(enemy,6)
+	Enemy_code.take_damage(enemy,6,player)
 end
 
 
@@ -73,11 +79,20 @@ end
 _.update=function(player_,dt)
 	
 	
+	
 	-- todo: call update on all nodes
 	local is_left=love.keyboard.isDown("a")
 	local is_right=love.keyboard.isDown("d")
 	local is_up=love.keyboard.isDown("w")
 	local is_down=love.keyboard.isDown("s")
+	
+	local is_any_input=is_left or is_right or is_up or is_down
+	
+	if not is_any_input then
+		player_.ai.update(player_)
+	else
+		log("ai skip")
+	end
 	
 	local dx=0
 	local dy=0
@@ -134,16 +149,25 @@ _.new=function()
 	result.speed=1
 	result.hp=5
 	result.invulnerable=false
+	result.score=0
 	
 	result.is_collision=true
 	local gun1=Gun1.new()
+	local side_gun=Side_gun.new()
 	result.guns={
-		gun1
+		gun1,
+		side_gun
 	}
 	
 	
 	return result
 end
+
+-- todo : think generic
+_.is=function(entity)
+	return entity~=nil and entity.entity_name==_.entity_name
+end
+
 
 Entity.addCode(_.entity_name,_)
 

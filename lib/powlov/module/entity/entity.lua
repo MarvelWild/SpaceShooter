@@ -144,6 +144,7 @@ end
 
 -- chain: db,entity,collision
 _.remove=function(entity)
+	log('removing entity:'.._.toString(entity),'entity')
 	removeDrawable(entity,_drawable)
 	_updatable[entity]=nil
 	_lateUpdatable[entity]=nil
@@ -186,7 +187,7 @@ end
 
 _.drawUnscaledUi=function()
 	for entity,draw in pairs(_uiDrawsUnscaled) do
-		draw()
+		draw(entity)
 	end
 end
 

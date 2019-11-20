@@ -1,8 +1,34 @@
-	>side gun
+ballistics: bullet gains player speed
+salvage data, items
+
+think way to pretty read entity, add it to pow
++inspect lib? already in pow
+
+	
+slow debugging? can delay. try monogame+f#/c#
+		
+		+how entity draws ui? drawUi!
+		+scale? drawUnscaledUi?
+	+draw
+					+try again -not crashed
+				+debug crashed on assert(entity_name)
+				
+			+should be gun or player
+		+bullet parent is bullet
+	+increment
++score
+				
+				
+				+log destroyed
+			+test
+		+destroy out of bounds bullets
+	+side gun
 	+separate gun from player
->more guns
++more guns
 
 
+	connect
+		+ai should have state for entity
 	move from wall to wall
 player ai
 

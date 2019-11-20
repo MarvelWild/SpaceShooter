@@ -11,6 +11,7 @@ Entity=Pow.entity
 Id=Pow.id
 
 Gun1=require "gun/gun1"
+Side_gun=require "gun/side_gun"
 
 Player_code=require "player"
 Enemy_code=require "enemy"
@@ -64,6 +65,8 @@ love.load=function()
 		Audio.play_music(Res.music.track1)
 	end
 	
+	Ai.attach(Ai.move_from_wall_to_wall,Player)
+	
 end
 
 love.draw=function()
@@ -78,7 +81,6 @@ love.draw=function()
 
 	Cscreen.cease()
 	--love.graphics.print("mouse at:"..game_x..","..game_y)
-	love.graphics.print("hp:"..Player.hp,0,16)
 end
 
 love.update=function()

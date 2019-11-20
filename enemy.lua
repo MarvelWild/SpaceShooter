@@ -48,9 +48,15 @@ _.new=function(parent)
 	return result
 end
 
-_.take_damage=function(enemy, amount)
+_.take_damage=function(enemy, amount, source)
 	enemy.hp=enemy.hp-amount
 	if enemy.hp<=0 then
+		if source~=nil and Player_code.is(source) then
+			-- todo: differentiate
+			source.score=source.score+1
+		end
+		
+		
 		Entity.remove(enemy)
 	end
 end
