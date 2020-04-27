@@ -13,7 +13,7 @@ _.fire=function(gun)
 	local cooldown_ends=gun.cooldown_ends
 	
 	-- todo: >1 player
-	local player=Player
+	local player=gun.parent
 	
 	
 	if frame > cooldown_ends then
@@ -36,11 +36,12 @@ _.fire=function(gun)
 	gun.cooldown=cooldown
 end
 
-_.new=function()
+_.new=function(parent)
 	local result=Base_entity.new(_.entity_name,nil)
 	result.cooldown=64
 	result.cooldown_ends=0
 	result.code=_
+  result.parent=parent
 	
 	result.fire=function()
 		_.fire(result)

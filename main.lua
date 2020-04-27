@@ -6,6 +6,9 @@ Audio=require "audio"
 Options=require "options"
 Pow=require "lib/powlov/pow"
 Pow.setup({})
+
+_frm=Pow.getFrame
+
 Base_entity=Pow.baseEntity
 Entity=Pow.entity
 Id=Pow.id
@@ -35,6 +38,17 @@ log=debug_x.log
 
 
 Player=Player_code.new()
+Player2=Player_code.new()
+Player2.btn_up="kp5"
+Player2.btn_down="kp2"
+Player2.btn_left="kp1"
+Player2.btn_right="kp3"
+
+
+
+
+
+
 Bg=Bg_code.new()
 
 Game_width=320
@@ -57,6 +71,7 @@ love.load=function()
 	
 	Entity.add(Bg)
 	Entity.add(Player)
+	Entity.add(Player2)
 	_load_level(Current_level)
 
 	Pow.load()

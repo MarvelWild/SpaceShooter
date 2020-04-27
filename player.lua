@@ -5,6 +5,8 @@ _.entity_name="player"
 local max_y=220
 local min_y=60
 
+
+
 _.draw=function(player)
 	if player.invulnerable then
 		love.graphics.setColor(0.8,1,1,0.5)
@@ -76,22 +78,24 @@ end
 
 
 
+
+
+
 _.update=function(player_,dt)
-	
-	
-	
+  
+  local frame=_frm()
 	-- todo: call update on all nodes
-	local is_left=love.keyboard.isDown("a")
-	local is_right=love.keyboard.isDown("d")
-	local is_up=love.keyboard.isDown("w")
-	local is_down=love.keyboard.isDown("s")
+	local is_left=love.keyboard.isDown(player_.btn_left)
+	local is_right=love.keyboard.isDown(player_.btn_right)
+	local is_up=love.keyboard.isDown(player_.btn_up)
+	local is_down=love.keyboard.isDown(player_.btn_down)
 	
 	local is_any_input=is_left or is_right or is_up or is_down
 	
 	if not is_any_input then
-		player_.ai.update(player_)
+		-- player_.ai.update(player_)
 	else
-		log("ai skip")
+		-- log("ai skip")
 	end
 	
 	local dx=0
@@ -150,10 +154,15 @@ _.new=function()
 	result.hp=5
 	result.invulnerable=false
 	result.score=0
+  
+  result.btn_up="w"
+  result.btn_down="s"
+  result.btn_left="a"
+  result.btn_right="d"
 	
 	result.is_collision=true
-	local gun1=Gun1.new()
-	local side_gun=Side_gun.new()
+	local gun1=Gun1.new(result)
+	local side_gun=Side_gun.new(result)
 	result.guns={
 		gun1,
 		side_gun

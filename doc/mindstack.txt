@@ -1,3 +1,61 @@
+use comments for wip/todo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+player 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ballistics: bullet gains player speed
 salvage data, items
 
