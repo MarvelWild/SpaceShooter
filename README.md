@@ -1,5 +1,5 @@
 # SpaceShooter
-Space shooter game in love2d lua
+Basic/primitive space shooter game in love2d lua
 
 state: early prototype
 
